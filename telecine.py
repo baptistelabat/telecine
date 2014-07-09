@@ -3,8 +3,10 @@ import serial
 import time
 
 disp = Display((640, 480))
-cam = Camera(1)
+cam = Camera(0)
 counter = 0
+line = "0"
+imageSaved = False
 
 
 locations = ['/dev/ttyACM0','/dev/ttyACM1','/dev/ttyACM2','/dev/ttyACM3','/dev/ttyACM4','/dev/ttyACM5','/dev/ttyUSB0','/dev/ttyUSB1','/dev/ttyUSB2','/dev/ttyUSB3','/dev/ttyS0','/dev/ttyS1','/dev/ttyS2','/dev/ttyS3']
@@ -20,11 +22,16 @@ for device in locations:
 time.sleep(1.5)
 
 while disp.isNotDone():
-    img = cam.getImage()
     if ser.inWaiting() > 0:
-      line = ser.readline()
-      print "Received from arduino: ", line
+      try:
+        line = ser.readline()
+        print "Received from arduino: ", line
+      except:
+        print "ardu not ready"
       print line[0]
-    if line[0]=="1":
-      img.save(str(counter) + ".png")
-      counter = counter +1
+    if imageSaved==False:
+        if line[0]=="1":
+          #img.save(str(counter) + ".png")
+          counter = counter +1
+          print counter
+          imageSaved = True
