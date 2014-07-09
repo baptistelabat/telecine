@@ -15,7 +15,7 @@ void setup()
     Serial.begin(19200); // démarrage liaison série à 19200 bauds
     x=0;
     t = millis();
-    attachInterrupt(0, blink, CHANGE);
+    attachInterrupt(0, blink, FALLING);
     isPrinted = false;
 }
 void loop()
@@ -23,12 +23,12 @@ void loop()
     //i = digitalRead(sensorPin); // lecture de l'interrupteur optique
      if (isPrinted==false)
      {
-      Serial.print("delta ");
-      Serial.println(deltat);
-      //if (deltat>100)
-      //{
-        Serial.println(state); // affiche 0 sur la console (serial monitor) si l'interrupteur est occulté,     sinon affiche 1
-      //}
+      //Serial.print("delta ");
+      //Serial.println(deltat);
+      if (deltat>100)
+      {
+        Serial.println(1); // affiche 0 sur la console (serial monitor) si l'interrupteur est occulté,     sinon affiche 1
+      }
       isPrinted = true;
      }
      delay(20);
