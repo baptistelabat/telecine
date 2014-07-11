@@ -22,16 +22,14 @@ for device in locations:
 time.sleep(1.5)
 
 while disp.isNotDone():
+    img = cam.getImage()
     if ser.inWaiting() > 0:
       try:
         line = ser.readline()
         print "Received from arduino: ", line
       except:
         print "ardu not ready"
-      print line[0]
-    if imageSaved==False:
-        if line[0]=="1":
-          #img.save(str(counter) + ".png")
+      if line[0]=="1":
+          img.save(str(counter) + ".png")
           counter = counter +1
           print counter
-          imageSaved = True
