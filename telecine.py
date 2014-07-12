@@ -3,7 +3,7 @@ import serial
 import time
 
 disp = Display((640, 480))
-cam = Camera(0)
+cam = Camera(1)
 counter = 0
 line = "0"
 imageSaved = False
@@ -29,7 +29,7 @@ while disp.isNotDone():
         print "Received from arduino: ", line
       except:
         print "ardu not ready"
-      if line[0]=="1":
+      if line[0]=="0":
           img.save(str(counter) + ".png")
           counter = counter +1
           print counter
